@@ -13,12 +13,13 @@ class Moon {
     
     getCurrentPosition() {
         let offset = new Phaser.Point(this.distance * Math.cos(this.angle), this.distance * Math.sin(this.angle));
-        return Phaser.Point.add( this.planet.sprite.body.position, offset);
+        return Phaser.Point.add( this.planet.sprite.body.center, offset );
     }
     
     update() {
-        this.angle += 1 * Phaser.Time.elapsed; //TODO varying speed
-        this.sprite.body.position = this.getCurrentPosition();
+        this.angle += 1 * game.time.elapsed / 1000; //TODO varying speed
+        let pos = this.getCurrentPosition();
+        this.sprite.position = pos;
     }
 }
 
