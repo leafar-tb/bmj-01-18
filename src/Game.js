@@ -2,11 +2,6 @@ const WORLD_SIZE = 3000;
 const PLAYER_SPEED = 600;
 
 BasicGame.Game = function (game) {
-    var tileGroup; //active tiles (not already matched)
-  	var uncovered; //tiles currently flipped over
-  	var found; //matched tiles
-    var style;
-    var text;
     var PLAYER;
     var PLANETS;
 };
@@ -56,7 +51,7 @@ BasicGame.Game.prototype = {
 
         PLAYER.update();
         for(let p of PLANETS) {
-            p.update();
+            p.update('thief_say');
         }
     },
 

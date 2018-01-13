@@ -17,6 +17,7 @@ BasicGame.Preloader.prototype = {
 
 	preload: function () {
         game.load.image('player', 'img/player_ship.png');
+				game.load.image('thief_say', 'img/thief_say.png')
 
         for(let i = 1; i <= N_MOONS; ++i) {
             game.load.image('moon'+i, 'img/moon'+i+'.png');
