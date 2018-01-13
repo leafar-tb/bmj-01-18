@@ -36,7 +36,15 @@ BasicGame.Game.prototype = {
         game.rnd.integerInRange(10, WORLD_SIZE*WORLD_SIZE / 500000);
         totalMoons = 0;
         for(let i = 0; i < 12; ++i) {
-            let pos = new Phaser.Point(game.rnd.between(0, game.world.width), game.rnd.between(0, game.world.height));
+            let pos;
+            for(let t = 0; t < 100; ++t) { // up to 100 retries
+                pos = new Phaser.Point(game.rnd.between(0, game.world.width), game.rnd.between(0, game.world.height));
+                // check if another planet is already close to this position
+                for(let p of PLANETS) {
+                    if(p.sprite.body.center.distance(pos) > 75)
+                        break;
+                }
+            }
 
             let nMoons = game.rnd.integerInRange(1, 2);
             let moons = []
