@@ -21,7 +21,8 @@ class Moon {
         return this.sprite.body.center.distance(planet.sprite.body.center);
     }
 
-    update(say) {
+    update(say, typ) {
+
         // find closest planet
         let closest = this.planet;
         for(let p of PLANETS)  {
@@ -33,11 +34,20 @@ class Moon {
         if(closest != this.planet) {
             this.planet.moons.splice(this.planet.moons.indexOf(this), 1);
 
-            this.saying = game.add.sprite(this.planet.sprite.x+50, this.planet.sprite.y-50, say);
-            game.time.events.add(Phaser.Timer.SECOND * 0.8, this.destroy, this);
-            
+            if (typ === "thief"){
+              this.saying = game.add.sprite(this.planet.sprite.x+50, this.planet.sprite.y-50, say);
+              game.time.events.add(Phaser.Timer.SECOND * 0.8, this.destroy, this);
+            }
+
             this.planet = closest;
             this.planet.moons.push(this);
+
+            if (typ === "sry") {
+              this.saying = game.add.sprite(this.planet.sprite.x-50, this.planet.sprite.y+50, say);
+              game.time.events.add(Phaser.Timer.SECOND * 0.8, this.destroy, this);
+              this.planet.moons.push(new Moon(say, this.planet, 100, 2*3.14))
+              //game.physics.arcade.moveToPointer(this.saying, 600);
+            }
 
             this.distance = this.distanceTo(closest);
             let delta = Phaser.Point.subtract(this.sprite.body.center, this.planet.sprite.body.center);
@@ -69,9 +79,9 @@ class Planet {
         }
     }
 
-    update(say) {
+    update(say, typ) {
         for(var moon of this.moons)
-            moon.update(say);
+            moon.update(say, typ);
     }
 
 }

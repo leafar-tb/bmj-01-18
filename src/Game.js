@@ -40,7 +40,7 @@ BasicGame.Game.prototype = {
         } else { // close enough
             PLAYER.sprite.body.velocity.set(0);
         }
-        
+
         // rotate player sprite to (mouse) pointer
         let dx = PLAYER.sprite.body.velocity.x;
         let dy = PLAYER.sprite.body.velocity.y;
@@ -50,9 +50,9 @@ BasicGame.Game.prototype = {
         let targetAngle = Math.atan2(dy, dx) + Math.PI/2;
         PLAYER.sprite.rotation = targetAngle;
 
-        PLAYER.update();
+        PLAYER.update('sorry_say', "sry");
         for(let p of PLANETS) {
-            p.update('thief_say');
+            p.update('thief_say', "thief");
         }
     },
 
