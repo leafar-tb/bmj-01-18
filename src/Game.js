@@ -31,6 +31,7 @@ BasicGame.Game.prototype = {
     },
 
     update: function () {
+        
         // player follows mouse cursor
         if (game.physics.arcade.distanceToPointer(PLAYER.sprite, game.input.activePointer) > 8) {
             game.physics.arcade.moveToPointer(PLAYER.sprite, 300);
@@ -41,12 +42,17 @@ BasicGame.Game.prototype = {
         PLAYER.update();
         for(let p of PLANETS) {
             p.update();
+
+            if(game.physics.arcade.overlap(PLAYER.sprite, p.sprite)){
+                // game over
+                this.restart(this);
+            }
         }
+
     },
 
     restart: function (pointer) {
         this.state.start('MainMenu');
-
     }
 
 };
