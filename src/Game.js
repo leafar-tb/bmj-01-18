@@ -35,6 +35,14 @@ BasicGame.Game.prototype = {
     },
 
     update: function () {
+
+        /* //trying to figure out rotating player sprite (not working rn)
+        var targetAngle = (360 / (2 * Math.PI)) * game.math.angleBetween(0, 0,
+          game.input.mousePointer.x, game.input.mousePointer.y);
+        //if(targetAngle < 0)
+            //targetAngle += 360;
+        PLAYER.sprite.body.rotation = targetAngle;*/
+
         // player follows mouse cursor
         if (game.physics.arcade.distanceToPointer(PLAYER.sprite, game.input.activePointer) > 8) {
             game.physics.arcade.moveToPointer(PLAYER.sprite, 300);
