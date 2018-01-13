@@ -34,20 +34,21 @@ BasicGame.Game.prototype = {
     },
 
     update: function () {
-
-        /* //trying to figure out rotating player sprite (not working rn)
-        var targetAngle = (360 / (2 * Math.PI)) * game.math.angleBetween(0, 0,
-          game.input.mousePointer.x, game.input.mousePointer.y);
-        //if(targetAngle < 0)
-            //targetAngle += 360;
-        PLAYER.sprite.body.rotation = targetAngle;*/
-
         // player follows mouse cursor
         if (game.physics.arcade.distanceToPointer(PLAYER.sprite, game.input.activePointer) > PLAYER_SPEED / 30) {
             game.physics.arcade.moveToPointer(PLAYER.sprite, PLAYER_SPEED);
         } else { // close enough
             PLAYER.sprite.body.velocity.set(0);
         }
+        
+        // rotate player sprite to (mouse) pointer
+        let dx = PLAYER.sprite.body.velocity.x;
+        let dy = PLAYER.sprite.body.velocity.y;
+        if(dx == 0 && dy == 0)
+            dy = -1;
+        // for some reason we need to add another 90°
+        let targetAngle = Math.atan2(dy, dx) + Math.PI/2;
+        PLAYER.sprite.rotation = targetAngle;
 
         PLAYER.update();
         for(let p of PLANETS) {
