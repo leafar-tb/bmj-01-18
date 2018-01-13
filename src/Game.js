@@ -63,7 +63,7 @@ BasicGame.Game.prototype = {
     },
 
     restart: function (pointer) {
-        this.state.start('MainMenu');
+        this.state.start('GameOver');
     }
 
 };
