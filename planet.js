@@ -32,6 +32,7 @@ class Moon {
             this.planet.stealMoon(this);
             this.planet = closest;
             this.planet.moons.push(this);
+            this.planet.excuse();
 
             this.distance = this.distanceTo(closest);
             let delta = Phaser.Point.subtract(this.sprite.body.center, this.planet.sprite.body.center);
@@ -47,7 +48,12 @@ class Moon {
 const COMPLAINTS = [
     'You filthy thief!',
 ];
-const COMPLAINT_COOLDOWN = 3 * 1000;
+
+const EXCUSES = [
+    'Sorry, was that yours?',
+];
+
+const SAY_COOLDOWN = 3 * 1000;
 
 class Planet {
 
@@ -55,7 +61,7 @@ class Planet {
         this.sprite = game.add.sprite(pos.x, pos.y, image);
         this.sprite.anchor.set(0.5);
         game.physics.arcade.enable(this.sprite);
-        this.compl_cooldown = 0;
+        this.say_cooldown = 0;
 
         this.moons = [];
         let dist = 100;
@@ -75,11 +81,19 @@ class Planet {
         if(idx != -1) {
             this.moons.splice(idx, 1);
             
-            if(game.time.now > this.compl_cooldown) {
+            if(game.time.now > this.say_cooldown) {
                 let saying = game.add.text(this.sprite.x+50, this.sprite.y-50, game.rnd.pick(COMPLAINTS), {backgroundColor:'white'});
                 game.time.events.add(Phaser.Timer.SECOND * 0.8, saying.kill, saying);
-                this.compl_cooldown = game.time.now + COMPLAINT_COOLDOWN;
+                this.say_cooldown = game.time.now + SAY_COOLDOWN;
             }
+        }
+    }
+    
+    excuse() {
+        if(game.time.now > this.say_cooldown) {
+            let saying = game.add.text(this.sprite.x+50, this.sprite.y-50, game.rnd.pick(EXCUSES), {backgroundColor:'white'});
+            game.time.events.add(Phaser.Timer.SECOND * 0.8, saying.kill, saying);
+            this.say_cooldown = game.time.now + SAY_COOLDOWN;
         }
     }
 }
