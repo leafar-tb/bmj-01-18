@@ -30,7 +30,7 @@ BasicGame.Preloader.prototype = {
 	},
 
 	create: function () {
-		this.state.start('Game');
+		this.state.start('MainMenu');
 	}
 
 };
