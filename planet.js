@@ -17,8 +17,9 @@ class Moon {
     }
     
     update() {
-        this.angle += 1 * Phaser.Time.elapsed; //TODO varying speed
-        this.sprite.body.position = this.getCurrentPosition();
+        this.angle += 1 * game.time.elapsed / 1000; //TODO varying speed
+        let pos = this.getCurrentPosition();
+        this.sprite.position = pos;
     }
 }
 
