@@ -67,7 +67,7 @@ BasicGame.Game.prototype = {
     },
 
     restart: function (pointer) {
-        this.state.start('GameOver');
+        this.state.start('GameOver', true, false, PLAYER.moons.length);
     }
 
 };
