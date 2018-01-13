@@ -10,6 +10,8 @@ BasicGame.Game = function (game) {
 BasicGame.Game.prototype = {
 
     create: function () {
+        music = this.game.add.audio('music');
+        music.play()
 
         game.world.resize(WORLD_SIZE, WORLD_SIZE);
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -79,7 +81,11 @@ BasicGame.Game.prototype = {
     },
 
     gameOver: function (pointer) {
-        this.state.start('GameOver', true, false, PLAYER.moons.length);
+        explosion = game.add.sprite(PLAYER.sprite.x, PLAYER.sprite.y, 'explosion');
+        explosion.animations.add('explode', [0,1,2,3,4,5,6,7,8,9,10])
+        explosion.play('explode', 24, false);
+        explosion.animations.currentAnim.onComplete.add(function () {	this.state.start('GameOver', true, false, PLAYER.moons.length);}, this);
+        //this.state.start('GameOver', true, false, PLAYER.moons.length);
     },
 
     win: function(pointer) {
