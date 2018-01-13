@@ -17,11 +17,11 @@ BasicGame.Game.prototype = {
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
         let worldCenter = new Phaser.Point(game.world.centerX, game.world.centerY);
-        PLAYER = new Planet('player', worldCenter, ['moon1']);
-        game.physics.enable(PLAYER.sprite);
+        PLAYER = new Planet('player', worldCenter, []);
+
         game.camera.follow(PLAYER.sprite, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 
-        PLANETS = []
+        PLANETS = [PLAYER]
         for(let i = 0; i < 2; ++i) {
             let pos = new Phaser.Point(game.rnd.integerInRange(game.world.left, game.world.right), game.rnd.integerInRange(game.world.top, game.world.bottom));
 
