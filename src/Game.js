@@ -4,6 +4,7 @@ const PLAYER_SPEED = 600;
 BasicGame.Game = function (game) {
     var PLAYER;
     var PLANETS;
+    var totalMoons;
 };
 
 BasicGame.Game.prototype = {
@@ -18,9 +19,10 @@ BasicGame.Game.prototype = {
 
         game.camera.follow(PLAYER.sprite, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 
-        PLANETS = [PLAYER]
+        PLANETS = [PLAYER];
         game.rnd.sow(new Date().getTime().toString());
-        game.rnd.integerInRange(10, WORLD_SIZE*WORLD_SIZE / 500000)
+        game.rnd.integerInRange(10, WORLD_SIZE*WORLD_SIZE / 500000);
+        totalMoons = 0;
         for(let i = 0; i < 12; ++i) {
             let pos = new Phaser.Point(game.rnd.between(0, game.world.width), game.rnd.between(0, game.world.height));
 
@@ -30,6 +32,7 @@ BasicGame.Game.prototype = {
                 moons.push(game.rnd.pick(MOON_SPRITES));
 
             PLANETS.push(new Planet(game.rnd.pick(PLANET_SPRITES), pos, moons));
+            totalMoons += nMoons;
         }
     },
 
@@ -50,15 +53,26 @@ BasicGame.Game.prototype = {
         let targetAngle = Math.atan2(dy, dx) + Math.PI/2;
         PLAYER.sprite.rotation = targetAngle;
 
-        PLAYER.update('sorry_say', "sry");
         for(let p of PLANETS) {
-            p.update('thief_say', "thief");
+            p.update('thief_say');
+
+            if(game.physics.arcade.overlap(PLAYER.sprite, p.sprite)){
+                this.gameOver(this);
+            }
         }
+
+        if(PLAYER.moons.length >= totalMoons) {
+            this.win(this);
+        }
+
     },
 
-    restart: function (pointer) {
-        this.state.start('MainMenu');
+    gameOver: function (pointer) {
+        this.state.start('GameOver', true, false, PLAYER.moons.length);
+    },
 
+    win: function(pointer) {
+        this.state.start('Win', true, false, PLAYER.moons.length);
     }
 
 };
