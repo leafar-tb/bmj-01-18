@@ -9,7 +9,7 @@ BasicGame.Preloader = function (game) {
 };
 
 const N_MOONS = 1;
-const N_PLANETS = 2;
+const N_PLANETS = 3;
 const MOON_SPRITES = [];
 const PLANET_SPRITES = [];
 
