@@ -18,12 +18,12 @@ BasicGame.Game.prototype = {
         PLAYER = new Planet('player', worldCenter, ['moon1']);
         
         PLANETS = []
-        for(let i = 0; i <= 2; ++i) {
+        for(let i = 0; i < 2; ++i) {
             let pos = new Phaser.Point(game.rnd.integerInRange(game.world.left, game.world.right), game.rnd.integerInRange(game.world.top, game.world.bottom));
             
             let nMoons = game.rnd.integerInRange(1, 2);
             let moons = []
-            for(let m = 0; m <= nMoons; ++m)
+            for(let m = 0; m < nMoons; ++m)
                 moons.push(game.rnd.pick(MOON_SPRITES));
             
             PLANETS.push(new Planet(game.rnd.pick(PLANET_SPRITES), pos, moons));
