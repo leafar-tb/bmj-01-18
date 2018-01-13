@@ -61,6 +61,7 @@ class Planet {
         this.sprite = game.add.sprite(pos.x, pos.y, image);
         this.sprite.anchor.set(0.5);
         game.physics.arcade.enable(this.sprite);
+        this.sprite.body.setCircle(45);
         this.say_cooldown = 0;
 
         this.moons = [];
@@ -80,18 +81,20 @@ class Planet {
         let idx = this.moons.indexOf(moon);
         if(idx != -1) {
             this.moons.splice(idx, 1);
-            
+
             if(game.time.now > this.say_cooldown) {
-                let saying = game.add.text(this.sprite.x+50, this.sprite.y-50, game.rnd.pick(COMPLAINTS), {backgroundColor:'white'});
+                let saying = game.add.text(this.sprite.x+50, this.sprite.y-50, game.rnd.pick(COMPLAINTS), {fontSize: '15px', backgroundColor:'white'});
+                saying.font = 'VT323';
                 game.time.events.add(Phaser.Timer.SECOND * 0.8, saying.kill, saying);
                 this.say_cooldown = game.time.now + SAY_COOLDOWN;
             }
         }
     }
-    
+
     excuse() {
         if(game.time.now > this.say_cooldown) {
-            let saying = game.add.text(this.sprite.x+50, this.sprite.y-50, game.rnd.pick(EXCUSES), {backgroundColor:'white'});
+            let saying = game.add.text(this.sprite.x+50, this.sprite.y-50, game.rnd.pick(EXCUSES), {fontSize: '15px', backgroundColor:'white'});
+            saying.font = 'VT323';
             game.time.events.add(Phaser.Timer.SECOND * 0.8, saying.kill, saying);
             this.say_cooldown = game.time.now + SAY_COOLDOWN;
         }
