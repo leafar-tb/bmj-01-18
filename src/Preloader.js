@@ -22,6 +22,8 @@ BasicGame.Preloader.prototype = {
 
 				game.load.spritesheet('explosion', 'img/Explosion.png', 96, 96);
 
+				this.load.audio('music', 'img/apz.mp3');
+
         for(let i = 1; i <= N_MOONS; ++i) {
             game.load.image('moon'+i, 'img/moon'+i+'.png');
             MOON_SPRITES.push('moon'+i);

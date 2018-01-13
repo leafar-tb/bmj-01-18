@@ -10,6 +10,8 @@ BasicGame.Game = function (game) {
 BasicGame.Game.prototype = {
 
     create: function () {
+        music = this.game.add.audio('music');
+        music.play()
 
         game.world.resize(WORLD_SIZE, WORLD_SIZE);
         game.physics.startSystem(Phaser.Physics.ARCADE);
