@@ -20,6 +20,8 @@ BasicGame.Preloader.prototype = {
         game.load.image('thief_say', 'img/thief_say.png');
         game.load.image('sorry_say', 'img/sorry_say.png');
 
+				game.load.spritesheet('explosion', 'img/Explosion.png', 96, 96);
+
         for(let i = 1; i <= N_MOONS; ++i) {
             game.load.image('moon'+i, 'img/moon'+i+'.png');
             MOON_SPRITES.push('moon'+i);

@@ -67,7 +67,11 @@ BasicGame.Game.prototype = {
     },
 
     gameOver: function (pointer) {
-        this.state.start('GameOver', true, false, PLAYER.moons.length);
+        explosion = game.add.sprite(PLAYER.sprite.x, PLAYER.sprite.y, 'explosion');
+        explosion.animations.add('explode', [0,1,2,3,4,5,6,7,8,9,10])
+        explosion.play('explode', 24, false);
+        explosion.animations.currentAnim.onComplete.add(function () {	this.state.start('GameOver', true, false, PLAYER.moons.length);}, this);
+        //this.state.start('GameOver', true, false, PLAYER.moons.length);
     },
 
     win: function(pointer) {
