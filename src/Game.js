@@ -54,7 +54,7 @@ BasicGame.Game.prototype = {
         } else { // close enough
             PLAYER.sprite.body.velocity.set(0);
         }
-        
+
         // rotate player sprite to (mouse) pointer
         let dx = PLAYER.sprite.body.velocity.x;
         let dy = PLAYER.sprite.body.velocity.y;
@@ -65,11 +65,10 @@ BasicGame.Game.prototype = {
         PLAYER.sprite.rotation = targetAngle;
 
         for(let p of PLANETS) {
-            p.update('thief_say');
-
             if(game.physics.arcade.overlap(PLAYER.sprite, p.sprite)){
                 this.gameOver(this);
             }
+            p.update();
         }
 
         if(PLAYER.moons.length >= totalMoons) {
