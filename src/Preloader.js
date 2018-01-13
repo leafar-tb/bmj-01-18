@@ -11,7 +11,10 @@ BasicGame.Preloader = function (game) {
 BasicGame.Preloader.prototype = {
 
 	preload: function () {
-		game.load.image('player', 'assets/player.png');
+        game.load.image('player', 'img/player_ship.png');
+        
+		game.load.image('moon1', 'img/moon1.png');
+        game.load.image('planet1', 'img/planet1.png');
 	},
 
 	create: function () {

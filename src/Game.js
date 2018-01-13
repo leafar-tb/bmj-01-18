@@ -14,7 +14,7 @@ BasicGame.Game.prototype = {
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
         let worldCenter = new Phaser.Point(game.world.centerX, game.world.centerY);
-        PLAYER = new Planet('player', worldCenter, ['player']);
+        PLAYER = new Planet('player', worldCenter, ['moon1']);
     },
 
     update: function () {
