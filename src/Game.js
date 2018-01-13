@@ -1,3 +1,5 @@
+const WORLD_SIZE = 3000;
+const PLAYER_SPEED = 600;
 
 BasicGame.Game = function (game) {
     var tileGroup; //active tiles (not already matched)
@@ -13,7 +15,7 @@ BasicGame.Game.prototype = {
 
     create: function () {
 
-        game.world.resize(3000, 3000);
+        game.world.resize(WORLD_SIZE, WORLD_SIZE);
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
         let worldCenter = new Phaser.Point(game.world.centerX, game.world.centerY);
@@ -22,8 +24,10 @@ BasicGame.Game.prototype = {
         game.camera.follow(PLAYER.sprite, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 
         PLANETS = [PLAYER]
-        for(let i = 0; i < 2; ++i) {
-            let pos = new Phaser.Point(game.rnd.integerInRange(game.world.left, game.world.right), game.rnd.integerInRange(game.world.top, game.world.bottom));
+        game.rnd.sow(new Date().getTime().toString());
+        game.rnd.integerInRange(10, WORLD_SIZE*WORLD_SIZE / 500000)
+        for(let i = 0; i < 12; ++i) {
+            let pos = new Phaser.Point(game.rnd.between(0, game.world.width), game.rnd.between(0, game.world.height));
 
             let nMoons = game.rnd.integerInRange(1, 2);
             let moons = []
@@ -44,8 +48,8 @@ BasicGame.Game.prototype = {
         PLAYER.sprite.body.rotation = targetAngle;*/
 
         // player follows mouse cursor
-        if (game.physics.arcade.distanceToPointer(PLAYER.sprite, game.input.activePointer) > 8) {
-            game.physics.arcade.moveToPointer(PLAYER.sprite, 300);
+        if (game.physics.arcade.distanceToPointer(PLAYER.sprite, game.input.activePointer) > PLAYER_SPEED / 30) {
+            game.physics.arcade.moveToPointer(PLAYER.sprite, PLAYER_SPEED);
         } else { // close enough
             PLAYER.sprite.body.velocity.set(0);
         }
