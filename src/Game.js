@@ -17,7 +17,18 @@ BasicGame.Game.prototype = {
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
         let worldCenter = new Phaser.Point(game.world.centerX, game.world.centerY);
+
+        let graphics = game.add.graphics(0, 0);
+        for(let i = 0; i < game.rnd.integerInRange(150, 300); i++) {
+            graphics.beginFill(Phaser.Color.getColor(game.rnd.integerInRange(150, 255), game.rnd.integerInRange(100, 255), game.rnd.integerInRange(0, 50)));
+            let pos = new Phaser.Point(game.rnd.between(0, game.world.width), game.rnd.between(0, game.world.height));
+            graphics.drawCircle(pos.x, pos.y, 5);
+            graphics.endFill();
+        }
+        window.graphics = graphics;
+        
         PLAYER = new Planet('player', worldCenter, []);
+        PLAYER.sprite.anchor.set(0.5);
 
         game.camera.follow(PLAYER.sprite, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 
@@ -36,6 +47,7 @@ BasicGame.Game.prototype = {
             PLANETS.push(new Planet(game.rnd.pick(PLANET_SPRITES), pos, moons));
             totalMoons += nMoons;
         }
+
     },
 
     update: function () {

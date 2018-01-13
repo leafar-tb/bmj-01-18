@@ -11,7 +11,8 @@ BasicGame.GameOver.prototype = {
     create: function () {
         let go = game.add.text(80, 80, 'GAME OVER', {font: '50px Arial', fill: '#ffffff'});
         go.font = 'VT323';
-        let achieve = game.add.text(80, 160, 'you managed to capture '+points+' moons', {font: '24px Arial', fill: '#ffffff'});
+        let plural = points != 1 ? ' moons' : ' moon';
+        let achieve = game.add.text(80, 160, 'you managed to capture '+points+plural, {font: '24px Arial', fill: '#ffffff'});
         achieve.font = 'VT323';
         let retry = game.add.text(80, 240, 'press enter to retry', {font: '24px Arial', fill: '#ffffff'});
         retry.font = 'VT323';
