@@ -11,13 +11,11 @@ BasicGame.Preloader = function (game) {
 BasicGame.Preloader.prototype = {
 
 	preload: function () {
-
+		game.load.image('player', 'assets/player.png');
 	},
 
 	create: function () {
-		this.state.start('MainMenu');
-	},
-
-
+		this.state.start('Game');
+	}
 
 };
