@@ -16,6 +16,7 @@ BasicGame.Game.prototype = {
 
         let worldCenter = new Phaser.Point(game.world.centerX, game.world.centerY);
         PLAYER = new Planet('player', worldCenter, []);
+        PLAYER.sprite.anchor.set(0.5);
 
         game.camera.follow(PLAYER.sprite, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 
