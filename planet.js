@@ -4,7 +4,6 @@ class Moon {
         this.planet = parent;
         this.angle = initAngle;
         this.distance = dist;
-        this.saying;
 
         let pos = this.getCurrentPosition();
         this.sprite = game.add.sprite(pos.x, pos.y, image);
@@ -22,7 +21,6 @@ class Moon {
     }
 
     update() {
-        // find closest planet
         let closest = this.planet;
         for(let p of PLANETS)  {
             if(this.distanceTo(p) < this.distanceTo(closest))

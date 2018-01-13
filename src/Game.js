@@ -4,6 +4,7 @@ const PLAYER_SPEED = 600;
 BasicGame.Game = function (game) {
     var PLAYER;
     var PLANETS;
+    var totalMoons;
 };
 
 BasicGame.Game.prototype = {
@@ -18,10 +19,11 @@ BasicGame.Game.prototype = {
 
         game.camera.follow(PLAYER.sprite, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 
-        PLANETS = [PLAYER]
+        PLANETS = [PLAYER];
         game.rnd.sow(new Date().getTime().toString());
-        let nPlanets = game.rnd.integerInRange(10, WORLD_SIZE*WORLD_SIZE / 500000)
-        for(let i = 0; i < nPlanets; ++i) {
+        game.rnd.integerInRange(10, WORLD_SIZE*WORLD_SIZE / 500000);
+        totalMoons = 0;
+        for(let i = 0; i < 12; ++i) {
             let pos = new Phaser.Point(game.rnd.between(0, game.world.width), game.rnd.between(0, game.world.height));
 
             let nMoons = game.rnd.integerInRange(1, 2);
@@ -30,6 +32,7 @@ BasicGame.Game.prototype = {
                 moons.push(game.rnd.pick(MOON_SPRITES));
 
             PLANETS.push(new Planet(game.rnd.pick(PLANET_SPRITES), pos, moons));
+            totalMoons += nMoons;
         }
     },
 
@@ -40,7 +43,7 @@ BasicGame.Game.prototype = {
         } else { // close enough
             PLAYER.sprite.body.velocity.set(0);
         }
-        
+
         // rotate player sprite to (mouse) pointer
         let dx = PLAYER.sprite.body.velocity.x;
         let dy = PLAYER.sprite.body.velocity.y;
@@ -52,15 +55,23 @@ BasicGame.Game.prototype = {
 
         for(let p of PLANETS) {
             if(game.physics.arcade.overlap(PLAYER.sprite, p.sprite)){
-                // game over
-                this.restart(this);
+                this.gameOver(this);
             }
             p.update();
         }
+
+        if(PLAYER.moons.length >= totalMoons) {
+            this.win(this);
+        }
+
     },
 
-    restart: function (pointer) {
+    gameOver: function (pointer) {
         this.state.start('GameOver', true, false, PLAYER.moons.length);
+    },
+
+    win: function(pointer) {
+        this.state.start('Win', true, false, PLAYER.moons.length);
     }
 
 };
