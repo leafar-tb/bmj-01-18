@@ -47,10 +47,16 @@ class Moon {
 
 const COMPLAINTS = [
     'You filthy thief!',
+    'Oy!',
+    'Bastard!',
+    'What the blazes?!'
 ];
 
 const EXCUSES = [
     'Sorry, was that yours?',
+    'My bad!',
+    'Whoopsie!',
+    "I'm sorry."
 ];
 
 const SAY_COOLDOWN = 3 * 1000;
