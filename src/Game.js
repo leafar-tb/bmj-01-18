@@ -15,9 +15,9 @@ BasicGame.Game.prototype = {
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
         let worldCenter = new Phaser.Point(game.world.centerX, game.world.centerY);
-        PLAYER = new Planet('player', worldCenter, ['moon1']);
+        PLAYER = new Planet('player', worldCenter, []);
         
-        PLANETS = []
+        PLANETS = [PLAYER]
         for(let i = 0; i < 2; ++i) {
             let pos = new Phaser.Point(game.rnd.integerInRange(game.world.left, game.world.right), game.rnd.integerInRange(game.world.top, game.world.bottom));
             
