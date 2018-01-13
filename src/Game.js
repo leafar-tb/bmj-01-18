@@ -25,8 +25,8 @@ BasicGame.Game.prototype = {
 
         PLANETS = [PLAYER]
         game.rnd.sow(new Date().getTime().toString());
-        game.rnd.integerInRange(10, WORLD_SIZE*WORLD_SIZE / 500000)
-        for(let i = 0; i < 12; ++i) {
+        let nPlanets = game.rnd.integerInRange(10, WORLD_SIZE*WORLD_SIZE / 500000)
+        for(let i = 0; i < nPlanets; ++i) {
             let pos = new Phaser.Point(game.rnd.between(0, game.world.width), game.rnd.between(0, game.world.height));
 
             let nMoons = game.rnd.integerInRange(1, 2);
