@@ -58,12 +58,17 @@ BasicGame.Game.prototype = {
         PLAYER.update();
         for(let p of PLANETS) {
             p.update();
+
+            if(game.physics.arcade.overlap(PLAYER.sprite, p.sprite)){
+                // game over
+                this.restart(this);
+            }
         }
+
     },
 
     restart: function (pointer) {
-        this.state.start('MainMenu');
-
+        this.state.start('GameOver', true, false, PLAYER.moons.length);
     }
 
 };
