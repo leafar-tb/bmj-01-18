@@ -28,7 +28,6 @@ BasicGame.Game.prototype = {
         window.graphics = graphics;
         
         PLAYER = new Planet('player', worldCenter, []);
-        PLAYER.sprite.anchor.set(0.5);
 
         game.camera.follow(PLAYER.sprite, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 
@@ -67,8 +66,11 @@ BasicGame.Game.prototype = {
         let targetAngle = Math.atan2(dy, dx) + Math.PI/2;
         PLAYER.sprite.rotation = targetAngle;
 
+        function collisionCheck(obj1, obj2) {
+            return obj1.body.center.distance(obj2.body.center) < 75;
+        }
         for(let p of PLANETS) {
-            if(game.physics.arcade.overlap(PLAYER.sprite, p.sprite)){
+            if(game.physics.arcade.overlap(PLAYER.sprite, p.sprite, null, collisionCheck)){
                 this.gameOver(this);
             }
             p.update();

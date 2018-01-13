@@ -71,9 +71,8 @@ class Planet {
 
     constructor(image, pos, _moons) {
         this.sprite = game.add.sprite(pos.x, pos.y, image);
-        //this.sprite.anchor.set(0.5);
+        this.sprite.anchor.set(0.5);
         game.physics.arcade.enable(this.sprite);
-        this.sprite.body.setCircle(45, this.sprite.width/2, this.sprite.height/2);
         this.say_cooldown = 0;
 
         this.moons = [];
