@@ -9,7 +9,11 @@ BasicGame.MainMenu = function (game) {
 BasicGame.MainMenu.prototype = {
 
 	create: function () {
+		game.add.text(80, 80, 'Main Menu', {font: '50px Arial', fill: '#ffffff'});
+		game.add.text(80, 160, 'start game with enter', {font: '24px Arial', fill: '#ffffff'});
 
+		let enter = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+		enter.onDown.addOnce(this.startGame, this);
 	},
 
 	update: function () {
