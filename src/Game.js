@@ -55,7 +55,7 @@ BasicGame.Game.prototype = {
                 // game over
                 this.restart(this);
             }
-            p.update('thief_say');
+            p.update();
         }
     },
 

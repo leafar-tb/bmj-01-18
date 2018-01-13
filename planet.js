@@ -21,7 +21,7 @@ class Moon {
         return this.sprite.body.center.distance(planet.sprite.body.center);
     }
 
-    update(say) {
+    update() {
         // find closest planet
         let closest = this.planet;
         for(let p of PLANETS)  {
@@ -31,11 +31,7 @@ class Moon {
 
         // if a new planet is closer, hang on to it
         if(closest != this.planet) {
-            this.planet.moons.splice(this.planet.moons.indexOf(this), 1);
-
-            this.saying = game.add.sprite(this.planet.sprite.x+50, this.planet.sprite.y-50, say);
-            game.time.events.add(Phaser.Timer.SECOND * 0.8, this.destroy, this);
-            
+            this.planet.stealMoon(this);
             this.planet = closest;
             this.planet.moons.push(this);
 
@@ -48,11 +44,12 @@ class Moon {
         let pos = this.getCurrentPosition();
         this.sprite.position = pos;
     }
-
-    destroy() {
-      this.saying.kill();
-    }
 }
+
+const COMPLAINTS = [
+    'You filthy thief!',
+];
+const COMPLAINT_COOLDOWN = 3 * 1000;
 
 class Planet {
 
@@ -60,6 +57,7 @@ class Planet {
         this.sprite = game.add.sprite(pos.x, pos.y, image);
         this.sprite.anchor.set(0.5);
         game.physics.arcade.enable(this.sprite);
+        this.compl_cooldown = 0;
 
         this.moons = [];
         let dist = 100;
@@ -69,9 +67,21 @@ class Planet {
         }
     }
 
-    update(say) {
-        for(var moon of this.moons)
-            moon.update(say);
+    update() {
+        for(let moon of this.moons)
+            moon.update();
     }
 
+    stealMoon(moon) {
+        let idx = this.moons.indexOf(moon);
+        if(idx != -1) {
+            this.moons.splice(idx, 1);
+            
+            if(game.time.now > this.compl_cooldown) {
+                let saying = game.add.text(this.sprite.x+50, this.sprite.y-50, game.rnd.pick(COMPLAINTS), {backgroundColor:'white'});
+                game.time.events.add(Phaser.Timer.SECOND * 0.8, saying.kill, saying);
+                this.compl_cooldown = game.time.now + COMPLAINT_COOLDOWN;
+            }
+        }
+    }
 }
