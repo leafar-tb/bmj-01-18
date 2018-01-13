@@ -28,6 +28,8 @@ BasicGame.Boot.prototype = {
             this.scale.pageAlignHorizontally = true;
         }
 
+        this.game.physics.startSystem(Phaser.Physics.ARCADE);
+
 
 
     },
